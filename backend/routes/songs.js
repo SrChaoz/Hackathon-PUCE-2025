@@ -18,9 +18,7 @@ const {
 
 const router = express.Router();
 
-// GET /api/songs - Obtener todas las canciones (con filtros opcionales)
-router.get('/songs', getAllSongs);
-
+// Rutas específicas primero (antes de las rutas con parámetros)
 // GET /api/songs/stats - Obtener estadísticas de canciones del usuario autenticado
 router.get('/songs/stats', authenticate, getSongStats);
 
@@ -30,17 +28,20 @@ router.get('/songs/genres', getGenres);
 // GET /api/songs/artists - Obtener artistas únicos disponibles
 router.get('/songs/artists', getArtists);
 
-// GET /api/songs/years - Buscar canciones por rango de años
-router.get('/songs/years', getSongsByYearRange);
+// GET /api/songs/search/years - Buscar canciones por rango de años
+router.get('/songs/search/years', getSongsByYearRange);
 
-// GET /api/songs/duration - Buscar canciones por duración
-router.get('/songs/duration', getSongsByDuration);
+// GET /api/songs/search/duration - Buscar canciones por duración
+router.get('/songs/search/duration', getSongsByDuration);
 
 // GET /api/songs/user/:userId - Obtener canciones por usuario
 router.get('/songs/user/:userId', getSongsByUser);
 
-// GET /api/songs/:id - Obtener una canción por ID
+// GET /api/songs/:id - Obtener una canción por ID (debe ir después de rutas específicas)
 router.get('/songs/:id', getSongById);
+
+// GET /api/songs - Obtener todas las canciones (con filtros opcionales)
+router.get('/songs', getAllSongs);
 
 // POST /api/songs - Crear una nueva canción
 router.post('/songs', authenticate, controllerValidation, createSong);
